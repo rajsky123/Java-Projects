@@ -21,11 +21,14 @@
 <title>Shop Homepage - ${title}</title>
 
 <script>
-window.menu='${title}';
+	window.menu = '${title}';
 </script>
 
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootswatch Readable theme CSS -->
+<link href="${css}/bootswatch-readable-theme.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="${css}/shop-homepage.css" rel="stylesheet">
@@ -41,42 +44,45 @@ window.menu='${title}';
 
 <body>
 
+	<div class="wrapper">
+
+		<!-- Navigation -->
+
+		<%@include file="./shared/header.jsp"%>
 
 
-	<!-- Navigation -->
+		<!-- Page Content -->
+		<!--  Loading Home content -->
 
-	<%@include file="./shared/header.jsp"%>
-	
-	
-	<!-- Page Content -->
-	<!--  Loading Home content -->
+		<div class="content">
+			<c:if test="${userClickHome==true}">
+				<%@include file="home.jsp"%>
+			</c:if>
 
-	<c:if test="${userClickHome==true}">
-		<%@include file="home.jsp"%>
-	</c:if>
-	
-	<!-- Load About us only when user clicks -->
-	<c:if test="${userClickAbout==true}">
-		<%@include file="about.jsp"%>
-	</c:if>
-	
-	<!-- Load Contact us only when user clicks -->
-	<c:if test="${userClickContact==true}">
-		<%@include file="contact.jsp"%>
-	</c:if>
-	
-	<!-- Footer -->
-	<%@include file="./shared/footer.jsp"%>
+			<!-- Load About us only when user clicks -->
+			<c:if test="${userClickAbout==true}">
+				<%@include file="about.jsp"%>
+			</c:if>
+
+			<!-- Load Contact us only when user clicks -->
+			<c:if test="${userClickContact==true}">
+				<%@include file="contact.jsp"%>
+			</c:if>
+		</div>
+		<!-- Footer -->
+		<%@include file="./shared/footer.jsp"%>
 
 
 
-	<!-- jQuery -->
-	<script src="${js}/jquery.js"></script>
+		<!-- jQuery -->
+		<script src="${js}/jquery.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="${js}/bootstrap.min.js"></script>
-	<!-- Active Menu -->
-    <script src="${js}/myapp.js"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="${js}/bootstrap.min.js"></script>
+		<!-- Active Menu -->
+		<script src="${js}/myapp.js"></script>
+
+	</div>
 </body>
 
 </html>
