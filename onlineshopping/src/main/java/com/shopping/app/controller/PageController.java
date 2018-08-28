@@ -1,14 +1,11 @@
 package com.shopping.app.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shopping.app.categorydao.CategoryDao;
-import com.shopping.app.dto.Category;
 
 @Controller
 public class PageController {
