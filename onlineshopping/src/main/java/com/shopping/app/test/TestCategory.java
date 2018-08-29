@@ -8,7 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.shopping.app.categorydao.CategoryDao;
 import com.shopping.app.dto.Category;
 
-public class Test {
+public class TestCategory {
 	
 	private static AnnotationConfigApplicationContext ctx;
 	
@@ -34,7 +34,7 @@ public class Test {
 		category.setDescription("This is tv");
 		category.setImageURL("CAT_1");
 		
-		assertEquals("success", true, categoryDao.add(category));
+		assertEquals("Something went wrong", true, categoryDao.add(category));
 		
 	}
 

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shopping.app.categorydao.CategoryDao;
 import com.shopping.app.dto.Category;
 
-@Repository
+@Repository("categorydao")
 public class CategoryDaoImpl implements CategoryDao  {
 	
 	
