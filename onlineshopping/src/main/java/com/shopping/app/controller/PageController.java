@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.shopping.app.categorydao.CategoryDao;
 import com.shopping.app.dto.Category;
-import com.shopping.app.productdao.ProductDao;
 
 @Controller
 public class PageController {
@@ -16,8 +15,7 @@ public class PageController {
 	@Autowired
 	private CategoryDao categorydao;
 	
-	@Autowired
-	private ProductDao productdao;
+	
 
 	@RequestMapping(value= {"/","/home","/index"})
 	public ModelAndView index()
