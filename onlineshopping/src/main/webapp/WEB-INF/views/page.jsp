@@ -22,6 +22,7 @@
 
 <script>
 	window.menu = '${title}';
+	window.contextRoot='${contextRoot}';
 </script>
 
 <!-- Bootstrap Core CSS -->
@@ -29,6 +30,9 @@
 
 <!-- Bootswatch Readable theme CSS -->
 <link href="${css}/bootswatch-readable-theme.css" rel="stylesheet">
+
+<!-- DataTable Bootstrap CSS -->
+<link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="${css}/shop-homepage.css" rel="stylesheet">
@@ -84,6 +88,14 @@
 
 		<!-- Bootstrap Core JavaScript -->
 		<script src="${js}/bootstrap.min.js"></script>
+		
+		 <!-- Datatable Plugin -->
+		<script src="${js}/jquery.dataTables.js"></script>
+		
+		
+		 <!-- DataTable Bootstrap js -->
+		<script src="${js}/dataTables.bootstrap.js"></script>
+		
 		<!-- Active Menu -->
 		<script src="${js}/myapp.js"></script>
 
