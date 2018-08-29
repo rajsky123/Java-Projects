@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.shopping.app.dto.Category;
 
 @Configuration
-@ComponentScan(basePackages= {"com.shopping.app.dto","com.shopping.app.categorydao","com.shopping.app.categorydaoimpl"})
+@ComponentScan(basePackages= {"com.shopping.app"})
 @EnableTransactionManagement
 public class HibernateConfig {
 	
@@ -41,7 +41,7 @@ public class HibernateConfig {
 	public SessionFactory getSessionFactory(DataSource dataSource)
 	{
 		LocalSessionFactoryBuilder builder=new LocalSessionFactoryBuilder(dataSource);
-		builder.addAnnotatedClass(Category.class);
+		builder.scanPackages("com.shopping.app");
 		builder.addProperties(getHibProperties());
 		return builder.buildSessionFactory();
 		

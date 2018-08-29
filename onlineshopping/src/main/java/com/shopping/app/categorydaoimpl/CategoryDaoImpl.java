@@ -1,6 +1,5 @@
 package com.shopping.app.categorydaoimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
