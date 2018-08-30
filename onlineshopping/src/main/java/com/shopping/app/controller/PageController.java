@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.shopping.app.categorydao.CategoryDao;
 import com.shopping.app.dto.Category;
+import com.shopping.app.dto.Product;
+import com.shopping.app.productdao.ProductDao;
 
 @Controller
 public class PageController {
@@ -15,7 +17,8 @@ public class PageController {
 	@Autowired
 	private CategoryDao categorydao;
 	
-	
+	@Autowired
+	private ProductDao productdao;
 
 	@RequestMapping(value= {"/","/home","/index"})
 	public ModelAndView index()
@@ -71,6 +74,28 @@ public class PageController {
 		mv.addObject("categories", categorydao.list());
 		//passing a single category
 		mv.addObject("category", category);
+		return mv;
+	}
+	
+	/*viewing a single product */
+	
+	@RequestMapping("/show/{id}/product")
+	public ModelAndView getSingleProduct(@PathVariable("id") int id)
+	{
+		ModelAndView mv=new ModelAndView("page");
+		
+		Product product=productdao.get(id);
+		
+		//set the view count
+		product.setViews(product.getViews()+1);
+		
+		//update the view count
+		productdao.update(product);
+		//---------------------------
+		
+		mv.addObject("title",product.getName());
+		mv.addObject("product", product);
+		mv.addObject("userClickShowProduct", true);
 		return mv;
 	}
 	
