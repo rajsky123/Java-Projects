@@ -14,8 +14,6 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.shopping.app.dto.Category;
-
 @Configuration
 @ComponentScan(basePackages= {"com.shopping.app"})
 @EnableTransactionManagement
