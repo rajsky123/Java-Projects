@@ -21,6 +21,7 @@ import com.shopping.app.dto.Category;
 import com.shopping.app.dto.Product;
 import com.shopping.app.productdao.ProductDao;
 import com.shopping.app.util.FileUploadUtility;
+import com.shopping.app.validator.ProductValidator;
 
 @Controller
 @RequestMapping("/manage")
@@ -63,6 +64,11 @@ public class ManagementController {
 	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct,BindingResult result,Model model,
 			HttpServletRequest request)
 	{
+		
+		//validate image upload
+		new ProductValidator().validate(mProduct, result);
+		
+		
 		//check for any errors
 		if(result.hasErrors())
 		{

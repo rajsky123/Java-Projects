@@ -72,6 +72,7 @@
                         <LABEL class="control-label col-sm-4" for="file">Select an image </LABEL>
                         <div class="col-sm-8">
                             <sf:input type="file"  id="file" path="file"/>
+                            <sf:errors path="file"  cssClass="help-block" element="em"/>
                         </div>
                     </div>
 
