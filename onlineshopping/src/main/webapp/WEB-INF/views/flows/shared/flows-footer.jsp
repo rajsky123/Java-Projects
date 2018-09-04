@@ -1,7 +1,9 @@
 </div>
 <!-- Footer -->
-	<%@include file="../../shared/footer.jsp"%>
 
+<div class="container">
+	<%@include file="../../shared/footer.jsp"%>
+     
 
 
 	<!-- jQuery -->
@@ -21,6 +23,7 @@
 	<script src="${js}/myapp.js"></script>
 
 	</div>
+	      
 </body>
 
 </html>

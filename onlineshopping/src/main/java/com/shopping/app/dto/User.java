@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -39,6 +40,8 @@ public class User implements Serializable{
 	private String role;
 	@NotBlank(message = "Please enter password!")
 	private String password;
+	
+	@Transient
 	@NotBlank(message = "Please enter password!")
 	private String confirmPassword;
     private boolean enabled = true;

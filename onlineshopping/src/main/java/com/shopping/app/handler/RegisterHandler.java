@@ -1,6 +1,8 @@
 package com.shopping.app.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Component;
 
 import com.shopping.app.categorydao.UserDao;
@@ -14,8 +16,7 @@ public class RegisterHandler {
 
 	@Autowired
 	private UserDao userdao;
-	
-	
+
 	public RegisterModel init() {
 		return new RegisterModel();
 	}
@@ -27,27 +28,41 @@ public class RegisterHandler {
 	public void addBilling(RegisterModel registerModel, Address billing) {
 		registerModel.setBilling(billing);
 	}
-	
-	
+
 	public String saveAll(RegisterModel registerModel) {
-		  String transitionValue = "success";
-		  User user = registerModel.getUser();
-		  if(user.getRole().equals("USER")) {
-		   // create a new cart
-		   Cart cart = new Cart();
-		   cart.setUserId(user);
-		   user.setCart(cart);
-		  }
-		   
-		  
-		  // save the user
-		  userdao.addUser(user);
-		  // save the billing address
-		  Address billing = registerModel.getBilling();
-		  billing.setUserId(user);
-		  billing.setBilling(true);  
-		  userdao.addAddress(billing);
-		  return transitionValue ;
-		} 
+		String transitionValue = "success";
+		User user = registerModel.getUser();
+		if (user.getRole().equals("USER")) {
+			// create a new cart
+			Cart cart = new Cart();
+			cart.setUserId(user);
+			user.setCart(cart);
+		}
+
+		// save the user
+		userdao.addUser(user);
+		// save the billing address
+		Address billing = registerModel.getBilling();
+		billing.setUserId(user);
+		billing.setBilling(true);
+		userdao.addAddress(billing);
+		return transitionValue;
+	}
+
+	public String validateUser(User user, MessageContext error) {
+		String transitionValue = "success";
+		if (!user.getPassword().equals(user.getConfirmPassword())) {
+			error.addMessage(new MessageBuilder().error().source("confirmPassword")
+					.defaultText("Password does not match confirm password!").build());
+			transitionValue = "failure";
+		}
+		if(user.getEmail()!=null)
+		if (userdao.getByEmail(user.getEmail())!=null) {
+			error.addMessage(new MessageBuilder().error().source("email").defaultText("Email address is already taken!")
+					.build());
+			transitionValue = "failure";
+		}
+		return transitionValue;
+	}
 
 }

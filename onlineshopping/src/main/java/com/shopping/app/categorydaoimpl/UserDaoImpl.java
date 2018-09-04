@@ -64,6 +64,8 @@ try {
 		DetachedCriteria criteria=DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("email", email));
 		List<User> list = (List<User>) template.findByCriteria(criteria);
+		if(list.size()==0)
+			return null;
 		
 		return list.get(0);
 	}

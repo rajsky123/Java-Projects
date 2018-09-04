@@ -38,8 +38,8 @@
 			
 				<div class="panel-body">
 					<div class="text-center">
-						<h4>${registerModel.billing.addressLineOne} </h4>
-						<h4>${registerModel.billing.addressLineTwo} </h4>
+						<h4>${registerModel.billing.addressLineOne}, </h4>
+						<h4>${registerModel.billing.addressLineTwo}, </h4>
 						<h4>${registerModel.billing.city} -  ${registerModel.billing.postalCode} </h4>
 						<h4>${registerModel.billing.state}</h4>
 						<h4>${registerModel.billing.country}</h4>
