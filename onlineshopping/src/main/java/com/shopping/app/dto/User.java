@@ -39,6 +39,8 @@ public class User implements Serializable{
 	private String role;
 	@NotBlank(message = "Please enter password!")
 	private String password;
+	@NotBlank(message = "Please enter password!")
+	private String confirmPassword;
     private boolean enabled = true;
    
    
@@ -99,6 +101,12 @@ public class User implements Serializable{
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
     
     
