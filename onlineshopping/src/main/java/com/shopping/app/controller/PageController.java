@@ -18,105 +18,108 @@ public class PageController {
 
 	@Autowired
 	private CategoryDao categorydao;
-	
+
 	@Autowired
 	private ProductDao productdao;
 
-	@RequestMapping(value= {"/","/home","/index"})
-	public ModelAndView index()
-	{
-		ModelAndView mv=new ModelAndView("page");
+	@RequestMapping(value = { "/", "/home", "/index" })
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);
 		mv.addObject("categories", categorydao.list());
 		return mv;
 	}
-	
-	@RequestMapping(value= {"/about"})
-	public ModelAndView about()
-	{
-		ModelAndView mv=new ModelAndView("page");
+
+	@RequestMapping(value = { "/about" })
+	public ModelAndView about() {
+		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "About Us");
 		mv.addObject("userClickAbout", true);
 		return mv;
 	}
-	
-	@RequestMapping(value= {"/contact"})
-	public ModelAndView contact()
-	{
-		ModelAndView mv=new ModelAndView("page");
+
+	@RequestMapping(value = { "/contact" })
+	public ModelAndView contact() {
+		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Contact Us");
 		mv.addObject("userClickContact", true);
 		return mv;
 	}
-	
-	/*Method to show all products*/
-	
-	@RequestMapping(value= {"show/all/products"})
-	public ModelAndView showAllProducts()
-	{
-		ModelAndView mv=new ModelAndView("page");
+
+	/* Method to show all products */
+
+	@RequestMapping(value = { "show/all/products" })
+	public ModelAndView showAllProducts() {
+		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "All Products");
 		mv.addObject("userClickAllProducts", true);
-		//passing a list of categories
+		// passing a list of categories
 		mv.addObject("categories", categorydao.list());
 		return mv;
 	}
-	
-	@RequestMapping(value= {"show/category/{id}/products"})
-	public ModelAndView showCategoryProducts(@PathVariable("id") int id)
-	{
-		ModelAndView mv=new ModelAndView("page");
-		//categoryDao a fetch a single category
-		Category category=null;
-		category=categorydao.getById(id);
+
+	@RequestMapping(value = { "show/category/{id}/products" })
+	public ModelAndView showCategoryProducts(@PathVariable("id") int id) {
+		ModelAndView mv = new ModelAndView("page");
+		// categoryDao a fetch a single category
+		Category category = null;
+		category = categorydao.getById(id);
 		mv.addObject("title", category.getName());
 		mv.addObject("userClickCategoryProducts", true);
-		//passing a list of categories
+		// passing a list of categories
 		mv.addObject("categories", categorydao.list());
-		//passing a single category
+		// passing a single category
 		mv.addObject("category", category);
 		return mv;
 	}
-	
-	/*viewing a single product */
-	
+
+	/* viewing a single product */
+
 	@RequestMapping("/show/{id}/product")
-	public ModelAndView getSingleProduct(@PathVariable("id") int id)throws ProductNotFoundException
-	{
-		ModelAndView mv=new ModelAndView("page");
-		
-		Product product=productdao.get(id);
-		
-		if(product==null)throw new ProductNotFoundException();
-		
-		//set the view count
-		product.setViews(product.getViews()+1);
-		
-		//update the view count
+	public ModelAndView getSingleProduct(@PathVariable("id") int id) throws ProductNotFoundException {
+		ModelAndView mv = new ModelAndView("page");
+
+		Product product = productdao.get(id);
+
+		if (product == null)
+			throw new ProductNotFoundException();
+
+		// set the view count
+		product.setViews(product.getViews() + 1);
+
+		// update the view count
 		productdao.update(product);
-		//---------------------------
-		
-		mv.addObject("title",product.getName());
+		// ---------------------------
+
+		mv.addObject("title", product.getName());
 		mv.addObject("product", product);
 		mv.addObject("userClickShowProduct", true);
 		return mv;
 	}
-	
-	
-	@RequestMapping(value="/login")
-	public ModelAndView login(@RequestParam(name="error", required = false)	String error,
-			@RequestParam(name="logout", required = false) String logout) {
-		ModelAndView mv= new ModelAndView("login");
+
+	@RequestMapping(value = "/login")
+	public ModelAndView login(@RequestParam(name = "error", required = false) String error,
+			@RequestParam(name = "logout", required = false) String logout) {
+		ModelAndView mv = new ModelAndView("login");
 		mv.addObject("title", "Login");
-		if(error!=null) {
+		if (error != null) {
 			mv.addObject("message", "Username and Password is invalid!");
 		}
-		if(logout!=null) {
+		if (logout != null) {
 			mv.addObject("logout", "You have logged out successfully!");
 		}
 		return mv;
 
-}
-	
+	}
+
+	@RequestMapping(value = "/access-denied")
+	public ModelAndView accessDenied() {
+		ModelAndView mv = new ModelAndView("error");
+		mv.addObject("errorTitle", "Aha! Caught You.");
+		mv.addObject("errorDescription", "You are not authorized to view this page!");
+		mv.addObject("title", "403 Access Denied");
+		return mv;
+	}
+
 }
