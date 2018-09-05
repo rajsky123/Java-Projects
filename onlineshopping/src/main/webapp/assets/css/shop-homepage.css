@@ -93,5 +93,7 @@ footer {
 	color:red;
 }
 
-
-
+.table-responsive
+{
+	overflow:auto;
+}

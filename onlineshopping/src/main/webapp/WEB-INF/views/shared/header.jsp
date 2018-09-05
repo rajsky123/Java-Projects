@@ -69,5 +69,5 @@
 
 <script>
 
-window.userModel='${userModel.role}';
+window.userRole='${userModel.role}';
 </script>
