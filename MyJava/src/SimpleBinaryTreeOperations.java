@@ -43,6 +43,7 @@ public class SimpleBinaryTreeOperations {
 		System.out.println("InternalNodes="+InternalNodes(tree.root));
 		System.out.println("FullNodes="+FullNodes(tree.root));
 		System.out.println("HeightTree="+HeightTree(tree.root));
+		
 	}
 	
 	public static void TraverseTree(Node t)

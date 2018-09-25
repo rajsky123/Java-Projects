@@ -8,7 +8,7 @@ public class MaxHeap {
 	
 	public MaxHeap(int[] heap) {
 		this.size=heap.length;
-		this.heap = heap;;
+		this.heap = heap;
 	}
 	
 	public void buildMaxHeap()
@@ -56,11 +56,11 @@ public class MaxHeap {
     public int extractMax() {
         if (size == 0) return -1;
 
-        int min = heap[0];
+        int max = heap[0];
         heap[0] = heap[size - 1];
         size--;
         maxHeapify(0);
-        return min;
+        return max;
 }
     public void insertElementIntoHeap(int element)
     {
