@@ -35,13 +35,12 @@ public class StudentDaoImpl implements StudentDao{
 	
 	
 	@SuppressWarnings("unchecked")
-	public StudentDetail loginStudent(String name,String password) {
+	public StudentDetail loginStudent(String name) {
 		
 	   
 		
 		DetachedCriteria detachedCriteria =  DetachedCriteria.forClass(StudentDetail.class);
 		detachedCriteria.add(Restrictions.eq("name", name));
-		detachedCriteria.add(Restrictions.eq("password", password));
 		List<StudentDetail> findByCriteria = (List<StudentDetail>) hibernateTemplate.findByCriteria(detachedCriteria);
 		if(findByCriteria !=null && findByCriteria.size()>0)
 		return findByCriteria.get(0);

@@ -2,13 +2,12 @@ package com.stark.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.stark.dao.StudentDao;
 import com.stark.model.StudentDetail;
-import com.stark.model.Studentcredential;
 
 
 @Controller
@@ -40,28 +38,28 @@ public class MainController {
 		return "home";
 	}
 	
-	@RequestMapping("/login")
-	public String loginPage(Model model)
-	{
-		model.addAttribute("studentCredential",new Studentcredential() );
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model, String error, String logout) {
+		
+
+		if (error != null)
+			model.addAttribute("errorMsg", "Your username and password are invalid.");
+
+		if(logout != null)
+			model.addAttribute("msg", "You have been logged out successfully.");
+		
 		return "login";
 	}
 	
-	@RequestMapping(value ="/loginSuccess" ,method=RequestMethod.POST)
-	public ModelAndView loginSuccess(@Valid @ModelAttribute("studentCredential") Studentcredential studentCredential,BindingResult bindingResult){
-		if(bindingResult.hasErrors()){
-			return new ModelAndView("login");
-		}
-		
-		ModelAndView modelAndView = new ModelAndView("welcome");
-		StudentDetail student = getStudentDao().loginStudent(studentCredential.getName(), studentCredential.getPassword());
-		if(student!= null){
-			modelAndView.addObject("student", student);
-			return modelAndView;
-		}else{
-			 modelAndView = new ModelAndView("notFound");
-		}
-		return modelAndView;
+	@RequestMapping(value ="/loginSuccess")
+	public ModelAndView loginSuccess(){
+		ModelAndView mv= new ModelAndView("welcome");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			StudentDetail student = studentDao.loginStudent(auth.getName());
+			
+			mv.addObject("student", student);		
+		return mv;
 	}
 
 	@RequestMapping("/register")
@@ -72,6 +70,8 @@ public class MainController {
 	
 	@RequestMapping("/registerSuccess")
 	public ModelAndView registerSuccess(@ModelAttribute("student") StudentDetail student){
+		student.setEnabled(true);
+		student.setRole("ADMIN");
 		getStudentDao().registerStudent(student);
 		ModelAndView modelAndView = new ModelAndView("welcome");
 		modelAndView.addObject("student", student);

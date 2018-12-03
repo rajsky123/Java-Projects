@@ -33,7 +33,8 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> list() {
 
 		 DetachedCriteria criteria=DetachedCriteria.forClass(Product.class);
-		 List<Product> findByCriteria = (List<Product>) template.findByCriteria(criteria);
+		 @SuppressWarnings("unchecked")
+		List<Product> findByCriteria = (List<Product>) template.findByCriteria(criteria);
 		return findByCriteria;
 	}
 
@@ -67,6 +68,7 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> listActiveProducts() {
 		DetachedCriteria criteria=DetachedCriteria.forClass(Product.class);
 		criteria.add(Restrictions.eq("active", true));
+		@SuppressWarnings("unchecked")
 		List<Product> findByCriteria = (List<Product>) template.findByCriteria(criteria);
 		return findByCriteria;
 	}
@@ -76,6 +78,7 @@ public class ProductDaoImpl implements ProductDao {
 		DetachedCriteria criteria=DetachedCriteria.forClass(Product.class);
 		criteria.add(Restrictions.eq("active", true));
 		criteria.add(Restrictions.eq("categoryId", categoryId));
+		@SuppressWarnings("unchecked")
 		List<Product> findByCriteria = (List<Product>) template.findByCriteria(criteria);
 		return findByCriteria;
 	}
@@ -85,6 +88,7 @@ public class ProductDaoImpl implements ProductDao {
 		DetachedCriteria criteria=DetachedCriteria.forClass(Product.class);
 		criteria.add(Restrictions.eq("active", true));
 		criteria.addOrder(Order.asc("id"));
+		@SuppressWarnings("unchecked")
 		List<Product> findByCriteria = (List<Product>) template.findByCriteria(criteria,0,count);
 		return findByCriteria;
 	}

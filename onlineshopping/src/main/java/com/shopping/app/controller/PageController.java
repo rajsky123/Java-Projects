@@ -27,9 +27,13 @@ public class PageController {
 
 	@Autowired
 	private ProductDao productdao;
+	
+	
 
 	@RequestMapping(value = { "/", "/home", "/index" })
 	public ModelAndView index() {
+		
+		
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);

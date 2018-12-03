@@ -1,22 +1,46 @@
 package com.stark.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebMvcSecurity
+@ComponentScan(basePackages= {"com.stark"})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-
-	 @Autowired
+    
+	@Autowired
+     DataSource dataSource;
+	 
+	 @Value("select name,password,enabled from StudentDetail where name=?")
+	 String userQuery;
+	 
+	 @Value("select name,role from StudentDetail where name=?")
+	 String userRole;
+	 
+	    @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	        auth
-	            .inMemoryAuthentication()
-	                .withUser("admin").password("nimda").roles("ADMIN");
+	    	 auth.jdbcAuthentication()
+		       .usersByUsernameQuery(userQuery)
+		       .authoritiesByUsernameQuery(userRole)
+		       .dataSource(dataSource);
+	        
 	    }
+	    
+	    @SuppressWarnings("deprecation")
+		@Bean
+		public static NoOpPasswordEncoder passwordEncoder() {
+		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+		}
 	     
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
@@ -24,8 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	      http.csrf().disable()
 	         .authorizeRequests()
 	        .antMatchers("/").permitAll()
-	        .antMatchers("/register/**").access("hasRole('ADMIN')")
-	        .and().formLogin();
+	        .antMatchers("/register").permitAll()
+	        .antMatchers("/registerSuccess").permitAll()
+	        .antMatchers("/loginSuccess/").hasAnyAuthority("ADMIN")
+	        .anyRequest().authenticated()
+	        .and().formLogin().loginPage("/login").permitAll()
+	        .and().logout().permitAll();
 	       
 	      http.csrf().disable();
 				

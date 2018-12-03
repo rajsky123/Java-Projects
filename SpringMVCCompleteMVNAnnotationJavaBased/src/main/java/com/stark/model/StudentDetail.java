@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @Entity
 public class StudentDetail {
 	
@@ -16,6 +18,8 @@ public class StudentDetail {
 	private String graduationType;
 	private String stream;
 	
+	private boolean enabled;
+	private String role;
 	
 	public String getPassword() {
 		return password;
@@ -46,6 +50,18 @@ public class StudentDetail {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

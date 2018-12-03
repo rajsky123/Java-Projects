@@ -63,6 +63,7 @@ try {
 
 		DetachedCriteria criteria=DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("email", email));
+		@SuppressWarnings("unchecked")
 		List<User> list = (List<User>) template.findByCriteria(criteria);
 		if(list.size()==0)
 			return null;
@@ -75,6 +76,7 @@ try {
 		DetachedCriteria criteria=DetachedCriteria.forClass(Address.class);
 		criteria.add(Restrictions.eq("userId", user));
 		criteria.add(Restrictions.eq("billing", true));
+		@SuppressWarnings("unchecked")
 		List<Address> list=(List<Address>)template.findByCriteria(criteria);
 		
 		return list.get(0);
@@ -85,6 +87,7 @@ try {
 		DetachedCriteria criteria=DetachedCriteria.forClass(Address.class);
 		criteria.add(Restrictions.eq("userId", user));
 		criteria.add(Restrictions.eq("shipping", true));
+		@SuppressWarnings("unchecked")
 		List<Address> list=(List<Address>) template.findByCriteria(criteria);
 		return list;
 	}

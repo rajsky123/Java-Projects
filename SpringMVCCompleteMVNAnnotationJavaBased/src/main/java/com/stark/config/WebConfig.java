@@ -26,7 +26,7 @@ import com.stark.model.StudentDetail;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:/com/stark/properties/database.properties" })
-@ComponentScan(basePackages= {"com.stark.controller","com.stark.dao","com.stark.model","com.stark.config"})
+@ComponentScan(basePackages= {"com.stark"})
 public class WebConfig {
 	
 	@Value(value="${db.driver.name}")

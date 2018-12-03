@@ -9,7 +9,9 @@
 <title>Home Page</title>
 </head>
 <body>
-<h3 align="right"><a href="/SpringMVCCompleteMVNAnnotationJavaBased">Back</a></h3>
+<form action="${pageContext.request.contextPath}/logout">
+	<input type="submit" value="Logout">
+	</form>
 	<h2 align="center">${headerMessage}</h2>
 	<h3 align="center">You have registered with following Info::::</h3>
 	<table align="center" border="5px">
@@ -35,5 +37,7 @@
 		</tr>
 
 	</table>
+	
+	
 </body>
 </html>
